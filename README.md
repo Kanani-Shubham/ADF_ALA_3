@@ -70,7 +70,7 @@ Built as part of the **Android Development Framework (ADF)** academic module, th
 <div align="center">
 
 ### 🏠 Home Screen
-<img src="screenshots/home_screen.png" width="270" alt="Home Screen"/>
+<img src="https://github.com/Kanani-Shubham/ADF_ALA_3/blob/main/home_screen.png" width="270" alt="Home Screen"/>
 
 *Personalized greeting, live stats, recent activity, and note cards with mood colors*
 
