@@ -77,28 +77,28 @@ Built as part of the **Android Development Framework (ADF)** academic module, th
 ---
 
 ### ✏️ Add / Edit Note
-<img src="screenshots/add_note.png" width="270" alt="Add Note Screen"/>
+<img src="https://github.com/Kanani-Shubham/ADF_ALA_3/blob/main/add_note.png" width="270" alt="Add Note Screen"/>
 
 *Title + body editor, category picker, and 6 mood color swatches*
 
 ---
 
 ### 🔒 PIN Lock Screen
-<img src="screenshots/pin_screen.png" width="270" alt="PIN Lock Screen"/>
+<img src="https://github.com/Kanani-Shubham/ADF_ALA_3/blob/main/pin_screen.png" width="270" alt="PIN Lock Screen"/>
 
 *4-dot secure PIN entry for unlocking individual notes or the entire app*
 
 ---
 
 ### ❤️ Favorites Screen
-<img src="screenshots/favorites_screen.png" width="270" alt="Favorites Screen"/>
+<img src="https://github.com/Kanani-Shubham/ADF_ALA_3/blob/main/favorites_screen.png" width="270" alt="Favorites Screen"/>
 
 *All favorited notes in one place, with search and category filter*
 
 ---
 
 ### ⚙️ Control Center (Settings)
-<img src="screenshots/settings_screen.png" width="270" alt="Settings Screen"/>
+<img src="https://github.com/Kanani-Shubham/ADF_ALA_3/blob/main/settings_screen.png" width="270" alt="Settings Screen"/>
 
 *App lock toggle, premium dark mode switch, export & restore backup*
 
