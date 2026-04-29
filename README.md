@@ -1,158 +1,198 @@
-# 🔗 LinkVault — Smart Content Saver
+<div align="center">
 
-A professional Flutter (Android) app to save, manage, and search links shared from any app — YouTube, Instagram, LinkedIn, Facebook, and more.
+# 🔐 Secure Notes Pro
+
+### *Your thoughts, beautifully protected.*
+
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
+[![Hive](https://img.shields.io/badge/Hive-Local%20DB-FF7043?style=for-the-badge)](https://pub.dev/packages/hive)
+[![Provider](https://img.shields.io/badge/Provider-State%20Mgmt-7B1FA2?style=for-the-badge)](https://pub.dev/packages/provider)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+**A premium, offline-first note-taking app built with Flutter — featuring PIN security, mood-based note styling, favorites, dark mode, and JSON backup.**
+
+</div>
+
+---
+
+## 📖 Overview
+
+**Secure Notes Pro** is a fully offline, privacy-first note-taking application developed with Flutter. It goes beyond basic CRUD — users can categorize notes by mood color, lock sensitive entries behind a PIN, search and filter by category, back up their data as JSON, and switch between a polished light and deep-glow dark theme.
+
+Built as part of the **Android Development Framework (ADF)** academic module, this app demonstrates real-world patterns: clean architecture, reactive state management with Provider, local persistence with Hive, and a carefully crafted UI that feels at home on both Android and iOS.
 
 ---
 
 ## ✨ Features
 
-| Feature | Description |
+### 🔹 Core Features
+- **Full CRUD** — create, view, edit, and delete notes with a clean, focused interface
+- **Search & filter** — instantly search by title/content; filter notes by category tag
+- **Favorites system** — heart any note to pin it to a dedicated Favorites view
+- **Grid layout** — two-column masonry-style cards with mood-based pastel backgrounds
+
+### 🔐 Security Features
+- **App lock (PIN)** — optional startup PIN enforced via a splash lock screen
+- **Note-level locking** — individual notes can be locked; content is hidden until unlocked
+- **PIN management** — 4-digit secure PIN stored via SharedPreferences; set/change from Settings
+
+### 🎨 UI / UX Features
+- **Dual themes** — clean pastel light mode + premium deep-glow dark mode
+- **Mood colors** — 6 pastel color options per note (blue, pink, mint, peach, lavender, sky)
+- **Smooth navigation** — page transitions, back gestures, and a persistent bottom nav bar
+- **Contextual greeting** — home screen greets the user by name with time-aware messaging
+
+### ⚡ Advanced Features
+- **Dark mode toggle** — persisted across sessions via SharedPreferences
+- **Category tags** — Personal, Work, Ideas, Study, Dreams, Plans — with custom display labels
+- **Export backup** — serialize all notes to a JSON file for external storage
+- **Restore backup** — import a previously exported JSON file to restore notes
+- **Stats dashboard** — live counters for total notes, favorites, and locked notes
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
 |---|---|
-| **Share Intent** | Receive links via Android share from any app |
-| **Auto-Detect Category** | Automatically identifies YouTube, Instagram, LinkedIn, etc. |
-| **Full CRUD** | Add, view, edit, delete saved links |
-| **SQLite Storage** | Local persistent storage via `sqflite` |
-| **Search** | Full-text search across title, URL, description, tags |
-| **Tabs/Filter** | Filter by category using tab bar |
-| **Favorites** | Star/bookmark important links |
-| **Tags** | Add custom hashtags to links |
-| **Sort** | Sort by newest, oldest, title, or category |
-| **Open Links** | Tap any card to open in browser |
-| **Copy URL** | Long-press → copy URL to clipboard |
+| **Framework** | Flutter 3.x (Dart) |
+| **State Management** | Provider |
+| **Local Database** | Hive (NoSQL, Flutter-native) |
+| **Persistent Settings** | SharedPreferences |
+| **Architecture** | Feature-based modular clean architecture |
+| **Platform Target** | Android, iOS, Web (Chrome) |
 
 ---
 
-## 📁 Project Structure
+## 📱 App Screenshots
+
+<div align="center">
+
+### 🏠 Home Screen
+<img src="screenshots/home_screen.png" width="270" alt="Home Screen"/>
+
+*Personalized greeting, live stats, recent activity, and note cards with mood colors*
+
+---
+
+### ✏️ Add / Edit Note
+<img src="screenshots/add_note.png" width="270" alt="Add Note Screen"/>
+
+*Title + body editor, category picker, and 6 mood color swatches*
+
+---
+
+### 🔒 PIN Lock Screen
+<img src="screenshots/pin_screen.png" width="270" alt="PIN Lock Screen"/>
+
+*4-dot secure PIN entry for unlocking individual notes or the entire app*
+
+---
+
+### ❤️ Favorites Screen
+<img src="screenshots/favorites_screen.png" width="270" alt="Favorites Screen"/>
+
+*All favorited notes in one place, with search and category filter*
+
+---
+
+### ⚙️ Control Center (Settings)
+<img src="screenshots/settings_screen.png" width="270" alt="Settings Screen"/>
+
+*App lock toggle, premium dark mode switch, export & restore backup*
+
+</div>
+
+---
+
+## 🧩 Project Structure
 
 ```
-linkvault/
-├── lib/
-│   ├── main.dart                   # Entry point + share handler
-│   ├── models/
-│   │   └── link_model.dart         # LinkModel + auto-detection
-│   ├── database/
-│   │   └── db_helper.dart          # SQLite CRUD + search
-│   ├── screens/
-│   │   ├── home_screen.dart        # Main screen (list + search + tabs)
-│   │   └── add_edit_screen.dart    # Add/Edit form screen
-│   └── widgets/
-│       ├── app_theme.dart          # Theme, colors, fonts
-│       └── link_card.dart          # Individual link card widget
-├── android/
-│   └── app/src/main/
-│       ├── AndroidManifest.xml     # Share intent filters
-│       └── kotlin/…/MainActivity.kt
-└── pubspec.yaml                    # Dependencies
+lib/
+├── models/
+│   └── note_model.dart          # Hive data model for a Note
+│
+├── providers/
+│   └── note_provider.dart       # ChangeNotifier — all business logic
+│
+├── screens/
+│   ├── splash_lock_screen.dart  # Startup PIN gate
+│   ├── home_screen.dart         # Notes grid + search + stats
+│   ├── add_edit_note_screen.dart # Create / edit a note
+│   └── lock_screen.dart         # Per-note PIN unlock screen
+│
+├── services/
+│   ├── hive_service.dart        # Hive init + CRUD helpers
+│   └── pin_service.dart         # PIN read / write via SharedPreferences
+│
+├── utils/
+│   └── theme.dart               # Light + dark AppTheme definitions
+│
+└── main.dart                    # App entry point + ChangeNotifierProvider
 ```
 
 ---
 
-## 🚀 Setup & Run
+## ⚙️ Installation
 
-### 1. Prerequisites
-- Flutter 3.10+ installed
-- Android Studio / VS Code with Flutter plugin
-- Android device or emulator (API 21+)
+**Prerequisites:** Flutter SDK ≥ 3.0, Dart ≥ 3.0, Android Studio or VS Code
 
-### 2. Install dependencies
 ```bash
+# 1. Clone the repository
+git clone https://github.com/shubhamkanani/secure-notes-pro.git
+cd secure-notes-pro
+
+# 2. Install dependencies
 flutter pub get
-```
 
-### 3. Run the app
-```bash
+# 3. Run on a device / emulator
 flutter run
-```
 
-### 4. Build release APK
-```bash
+# 4. (Optional) Build release APK
 flutter build apk --release
 ```
-APK will be at: `build/app/outputs/flutter-apk/app-release.apk`
+
+> **Note:** The app uses Hive for local storage. No internet connection or backend setup is required.
 
 ---
 
-## 📦 Dependencies
+## 🎯 Learning Outcomes
 
-```yaml
-sqflite: ^2.3.0          # SQLite database
-path: ^1.8.3             # Path utilities
-share_handler: ^0.0.23   # Android share intent
-url_launcher: ^6.2.4     # Open links in browser
-intl: ^0.19.0            # Date formatting
-flutter_slidable: ^3.1.0 # Swipe-to-action cards
-shimmer: ^3.0.0          # Loading placeholders
-```
+This project was developed as part of the **Android Development Framework (ADF)** academic module. Key concepts applied and learned:
 
----
-
-## 🗄️ Database Schema
-
-```sql
-CREATE TABLE saved_links (
-  id          INTEGER PRIMARY KEY AUTOINCREMENT,
-  title       TEXT NOT NULL,
-  url         TEXT NOT NULL,
-  description TEXT DEFAULT '',
-  category    TEXT DEFAULT 'Other',
-  date        TEXT NOT NULL,
-  is_favorite INTEGER DEFAULT 0,
-  tags        TEXT DEFAULT ''
-);
-```
+- **Flutter widget lifecycle** — understanding `StatelessWidget` vs `StatefulWidget` and when to use each
+- **Provider pattern** — reactive state management using `ChangeNotifier`, `Consumer`, and `context.read/watch`
+- **Hive NoSQL** — defining TypeAdapters, initializing boxes, and performing async CRUD without a remote server
+- **SharedPreferences** — persisting lightweight settings (theme, PIN, app lock toggle) across app restarts
+- **Clean architecture** — separating models, providers, screens, services, and utilities into dedicated layers
+- **Security patterns** — PIN-gated startup with a splash lock screen and per-note locking logic
+- **Theme management** — defining and switching between light and dark `ThemeData` at runtime
+- **JSON serialization** — exporting and importing structured data for backup and restore
 
 ---
 
-## 📱 How Share Intent Works
+## 🔮 Future Improvements
 
-1. User opens YouTube/Instagram/any app
-2. Taps "Share" → selects **LinkVault**
-3. App launches and opens Add Link screen pre-filled with the URL
-4. Category is auto-detected from the URL
-5. User adds title/description/tags and saves
-
-### Supported categories (auto-detected):
-- ▶️ YouTube (`youtube.com`, `youtu.be`)
-- 📸 Instagram (`instagram.com`)
-- 💼 LinkedIn (`linkedin.com`)
-- 👥 Facebook (`facebook.com`, `fb.com`)
-- 🐦 Twitter/X (`twitter.com`, `x.com`)
-- 🔴 Reddit (`reddit.com`)
-- 💻 GitHub (`github.com`)
-- 📝 Medium (`medium.com`)
-- 🎵 TikTok (`tiktok.com`)
-- 📌 Pinterest (`pinterest.com`)
-- 🎧 Spotify (`spotify.com`)
-- 🛒 Shopping (`amazon.com`)
-- 🔗 Other
+- **Biometric authentication** — fingerprint / Face ID as an alternative to PIN unlock
+- **Cloud sync** — optional Firebase Firestore sync to back up notes across devices
+- **Rich text editor** — bold, italic, bullet lists, and inline images inside notes
+- **Reminder / alarm** — attach a date-time reminder to any note with local notifications
+- **Note sharing** — share a note as plain text or PDF via the native share sheet
 
 ---
 
-## 🎨 Design
+## 👨‍💻 Author
 
-- **Theme**: Light with green (#4CAF50) primary
-- **Cards**: Rounded with category color stripe
-- **Typography**: Nunito (bold, readable)
-- **Colors**: Soft greens, white cards, subtle shadows
-- **Empty States**: Illustrated empty screens
+**Shubham Kanani**
+Enrollment No. — 20230905090053
 
----
-
-## 🔧 Customization
-
-### Add a new category:
-1. Add to `LinkModel.detectCategory()` method
-2. Add emoji in `LinkModel.categoryEmoji()`
-3. Add color in `AppTheme.categoryColor()`
-4. Add to the `_tabs` list in `HomeScreen`
-
-### Change database path / name:
-Edit `DBHelper._initDB()` → change `'linkvault.db'`
+> Built with 💙 using Flutter
 
 ---
 
-## 📝 Notes
+<div align="center">
 
-- All data is stored **locally** — no internet, no Firebase required
-- Share handler requires **Android API 21+**
-- The app uses `launchMode="singleTop"` to handle multiple shares gracefully
+*If you found this project useful, consider starring ⭐ the repository.*
+
+</div>
